@@ -34,16 +34,28 @@ const renderSub = (menus: MenuProps) => {
 }
 const AppMenu: React.FC<RouteComponentProps> = ({ location }) => {
 	const [selectedKeys, setSelectedKeys] = useState<string[]>([])
-	const [openKeys, setOpenKeys] = useState<string[] | null>(null)
+	const [openKeys, setOpenKeys] = useState<string[]>([])
+	const onOpenChange = (openKeys: string[]) => {
+		setOpenKeys(openKeys)
+	}
 	useEffect(() => {
 		setSelectedKeys([location.pathname])
 		setOpenKeys(['/item'])
+		menus.forEach((menu) => {
+			const openKeys: RegExpMatchArray | null = location.pathname.match(
+				menu.key
+			)
+			if (openKeys) {
+				setOpenKeys([...openKeys])
+			}
+		})
 	}, [location.pathname])
 	return (
 		<Menu
 			theme="dark"
-			// openKeys={openKeys}
+			openKeys={openKeys}
 			selectedKeys={selectedKeys}
+			onOpenChange={onOpenChange}
 			mode="inline"
 		>
 			{menus.map((menu, i) =>

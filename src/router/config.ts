@@ -4,6 +4,8 @@ const NotFound = lazy(() => import('../views/error/NotFound'))
 
 const Container = lazy(() => import('../container/Layout'))
 const DashBoard = lazy(() => import('../views/home/DashBoard'))
+const Item1 = lazy(() => import('../views/home/Item1'))
+const Item2 = lazy(() => import('../views/home/Item2'))
 interface RouteObj {
 	path: string
 	exact?: boolean
@@ -34,6 +36,14 @@ const routes: RouteObj[] = [
 			{
 				path: '/dashboard',
 				component: DashBoard
+			},
+			{
+				path: '/item/item1',
+				component: Item1
+			},
+			{
+				path: '/item/item2',
+				component: Item2
 			}
 		]
 	}
@@ -51,11 +61,11 @@ const menus: MenuObj[] = [
 		sub: [
 			{
 				title: 'item1',
-				key: '/item1'
+				key: '/item/item1'
 			},
 			{
 				title: 'item2',
-				key: '/item2'
+				key: '/item/item2'
 			}
 		]
 	},
