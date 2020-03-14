@@ -8,13 +8,15 @@ interface CProps {
 	routes: []
 }
 const Home: React.FC<RouteComponentProps & CProps> = ({ routes, ...r }) => {
-	console.log('routes', r)
 	return (
 		<Layout>
-			<APPSider />
+			<APPSider {...r} />
 			<Layout>
 				<Header />
-				<Content>{RouteWithSubRoutes(routes)}</Content>
+				<Content>
+					{/* {RouteWithSubRoutes(routes)} */}
+					<RouteWithSubRoutes routes={routes} />
+				</Content>
 			</Layout>
 		</Layout>
 	)

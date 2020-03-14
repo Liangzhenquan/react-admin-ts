@@ -1,3 +1,3 @@
-import routes from './config'
+import { routes, menus } from './config'
 import { RouteWithRoutes, RouteWithSubRoutes } from './util'
-export { routes, RouteWithRoutes, RouteWithSubRoutes }
+export { routes, menus, RouteWithRoutes, RouteWithSubRoutes }

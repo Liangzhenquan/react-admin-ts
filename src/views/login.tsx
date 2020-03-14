@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { Button, Input } from 'antd'
-import { RouteProps, RouteComponentProps } from 'react-router-dom'
+import { RouteComponentProps } from 'react-router-dom'
 const Section = styled.section`
 	width: 100%;
 	height: 100vh;
@@ -33,6 +33,7 @@ const LoginButton = styled(Button)`
 	border: none;
 	border-radius: 0.08rem;
 `
+
 const Login: React.FC<RouteComponentProps> = ({ history }) => {
 	const [name, setname] = useState('')
 	const [pwd, setPwd] = useState('')

@@ -1,6 +1,21 @@
+@header-height: 1rem;
 html {
 	font-size: 50px;
 }
-aside {
+aside.ant-layout-sider {
 	height: 100vh;
+	background-color: #1890ff;
+}
+aside {
+	.ant-menu-dark,
+	.ant-menu-dark .ant-menu-sub {
+		background-color: #1890ff;
+	}
+}
+
+.ant-layout .ant-layout-header {
+	height: @header-height;
+	line-height: @header-height;
+	background-color: #fff;
+	box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
 }

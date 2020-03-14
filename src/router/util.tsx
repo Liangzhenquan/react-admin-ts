@@ -1,5 +1,7 @@
 import React, { Suspense } from 'react'
-import { Route, Switch, Redirect } from 'react-router-dom'
+import { Route, Switch, Redirect, RouteComponentProps } from 'react-router-dom'
+import { hasAuth } from '../utils/authorization'
+import { getLocalStorage } from '../utils/localStorage'
 import Loading from '../components/common/Loading'
 // interface SRProps {
 // 	path?: string
@@ -10,7 +12,7 @@ interface RProps {
 	routes?: any
 	exact?: boolean
 }
-interface SubRProps {
+interface SubProps {
 	routes: []
 }
 const RouteWithRoutes: React.FC<RProps> = (route) => {
@@ -19,20 +21,30 @@ const RouteWithRoutes: React.FC<RProps> = (route) => {
 			path={route.path}
 			key={route.path}
 			exact={route.exact}
-			render={(props) => (
-				<Suspense fallback={<Loading />}>
-					<route.component routes={route.routes} {...props} />
-				</Suspense>
-			)}
+			render={(props) => {
+				let isAuth: boolean = hasAuth(
+					props.location.pathname,
+					getLocalStorage('token')
+				)
+				if (isAuth) {
+					return (
+						<Suspense fallback={<Loading />}>
+							<route.component routes={route.routes} {...props} />
+						</Suspense>
+					)
+				}
+				return <Redirect to="/login" />
+			}}
 		/>
 	)
 }
 
-const RouteWithSubRoutes = (routes: []) => {
-	// console.log(routes)
-	// return null
+const RouteWithSubRoutes: React.FC<SubProps> = ({ routes }) => {
 	return (
 		<Switch>
+			<Route exact path="/">
+				<Redirect to="/dashboard" />
+			</Route>
 			{routes.map((route: RProps, i: number) => (
 				<RouteWithRoutes key={i} {...route} />
 			))}
